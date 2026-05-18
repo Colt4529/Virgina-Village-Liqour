@@ -301,33 +301,86 @@
     .selection-intro {
       font-size: 1rem;
       line-height: 1.8;
-      color: #ffffff;
+      color: #aaaaaa;
       max-width: 500px;
       margin-bottom: 3rem;
     }
 
-    .categories-grid {
+    .category-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .category-tab {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.4rem;
+      border: 1px solid rgba(192,33,26,0.3);
+      border-radius: 2px;
+      background: transparent;
+      color: #aaaaaa;
+      font-family: 'Karla', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .category-tab:hover { border-color: #c0211a; color: #ffffff; }
+    .category-tab.active { background: #c0211a; border-color: #c0211a; color: #ffffff; }
+    .category-tab i { font-size: 0.9rem; }
+
+    .products-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: rgba(192,33,26,0.2);
-      border: 1px solid rgba(192,33,26,0.2);
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
     }
-    .category-card {
+    .product-card {
       background: #0d0d0d;
-      padding: 2.5rem 2rem;
-      text-align: center;
-      transition: background 0.25s;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.2s;
     }
-    .category-card:hover { background: #161616; }
-    .cat-icon { font-size: 2rem; margin-bottom: 1rem; display: block; color: #c0211a; }
-    .cat-name {
+    .product-card:hover { border-color: rgba(192,33,26,0.5); transform: translateY(-3px); }
+    .product-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      background: #1a1a1a;
+    }
+    .product-info { padding: 1.25rem; }
+    .product-category {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #c0211a;
+      margin-bottom: 0.4rem;
+    }
+    .product-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 0.3rem;
+      line-height: 1.3;
+    }
+    .product-note {
+      font-size: 0.78rem;
+      color: #888888;
+      line-height: 1.5;
+      margin-bottom: 0.9rem;
+    }
+    .product-price {
       font-family: 'Playfair Display', serif;
       font-size: 1.1rem;
       color: #ffffff;
-      margin-bottom: 0.5rem;
     }
-    .cat-desc { font-size: 0.82rem; color: #ffffff; line-height: 1.6; }
+    .product-hidden { display: none; }
 
     /* SERVICES */
     #services { background: #0a0a0a; }
@@ -595,9 +648,9 @@
       .hero { grid-template-columns: 1fr; min-height: auto; }
       .hero-text { padding: 5rem 2rem 3rem; }
       .hero-visual { height: 280px; }
-      section { padding: 4rem 2rem; }
+      section { padding: 5rem 2rem; }
       #about { grid-template-columns: 1fr; gap: 3rem; }
-      .categories-grid { grid-template-columns: 1fr 1fr; }
+      .products-grid { grid-template-columns: 1fr 1fr; }
       .services-layout { grid-template-columns: 1fr; gap: 2rem; }
       .services-list { grid-template-columns: 1fr; }
       #visit { grid-template-columns: 1fr; }
@@ -723,15 +776,204 @@
 
   <section id="selection">
     <div class="section-tag">What We Carry</div>
-    <h2>A Carefully Chosen <em>Selection</em></h2>
-    <p class="selection-intro">Beer, wine, spirits, and more — from everyday picks to something special for the occasion.</p>
-    <div class="categories-grid fade-in">
-      <div class="category-card"><span class="cat-icon"><i class="fa-solid fa-wine-bottle"></i></span><div class="cat-name">Wine</div><div class="cat-desc">Old World classics, New World favorites, and hidden gems from small producers</div></div>
-      <div class="category-card"><span class="cat-icon"><i class="fa-solid fa-whiskey-glass"></i></span><div class="cat-name">Spirits</div><div class="cat-desc">Whiskey, bourbon, tequila, rum, vodka, gin — everyday bottles to collector pours</div></div>
-      <div class="category-card"><span class="cat-icon"><i class="fa-solid fa-beer-mug-empty"></i></span><div class="cat-name">Beer & Craft</div><div class="cat-desc">Colorado craft, domestic staples, and imported favorites in six packs and singles</div></div>
-      <div class="category-card"><span class="cat-icon"><i class="fa-solid fa-martini-glass-citrus"></i></span><div class="cat-name">Ready-to-Drink</div><div class="cat-desc">Canned cocktails, seltzers, and RTDs for any occasion</div></div>
-      <div class="category-card"><span class="cat-icon"><i class="fa-solid fa-droplet"></i></span><div class="cat-name">Non-Alcoholic</div><div class="cat-desc">Athletic Brewing, Ritual spirits, Spiritless, and more NA options growing weekly</div></div>
-      <div class="category-card"><span class="cat-icon"><i class="fa-solid fa-gift"></i></span><div class="cat-name">Gifts & Mixers</div><div class="cat-desc">Gift sets, mixers, bitters, and everything you need to stock a home bar</div></div>
+    <h2>Browse Our <em>Selection</em></h2>
+    <p class="selection-intro">Click a category to see what's on the shelf. From everyday picks to something special.</p>
+
+    <div class="category-tabs">
+      <button class="category-tab active" data-cat="all"><i class="fa-solid fa-store"></i> All</button>
+      <button class="category-tab" data-cat="wine"><i class="fa-solid fa-wine-bottle"></i> Wine</button>
+      <button class="category-tab" data-cat="spirits"><i class="fa-solid fa-whiskey-glass"></i> Spirits</button>
+      <button class="category-tab" data-cat="beer"><i class="fa-solid fa-beer-mug-empty"></i> Beer & Craft</button>
+      <button class="category-tab" data-cat="rtd"><i class="fa-solid fa-martini-glass-citrus"></i> Ready-to-Drink</button>
+      <button class="category-tab" data-cat="na"><i class="fa-solid fa-droplet"></i> Non-Alcoholic</button>
+      <button class="category-tab" data-cat="gifts"><i class="fa-solid fa-gift"></i> Gifts</button>
+    </div>
+
+    <div class="products-grid fade-in">
+
+      <!-- WINE -->
+      <div class="product-card" data-cat="wine">
+        <img class="product-img" src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400&h=440&fit=crop&q=80" alt="Josh Cabernet Sauvignon" onerror="this.style.background='#1a1a1a';this.style.height='220px'">
+        <div class="product-info">
+          <div class="product-category">Wine · Red</div>
+          <div class="product-name">Josh Cabernet Sauvignon</div>
+          <div class="product-note">California's most popular Cab. Rich cherry, dark fruit, smooth finish.</div>
+          <div class="product-price">$14.99</div>
+        </div>
+      </div>
+      <div class="product-card" data-cat="wine">
+        <img class="product-img" src="https://images.unsplash.com/photo-1474722883778-792e7990302f?w=400&h=440&fit=crop&q=80" alt="Kim Crawford Sauvignon Blanc" onerror="this.style.background='#1a1a1a';this.style.height='220px'">
+        <div class="product-info">
+          <div class="product-category">Wine · White</div>
+          <div class="product-name">Kim Crawford Sauvignon Blanc</div>
+          <div class="product-note">Crisp New Zealand white. Citrus and tropical fruit, clean finish.</div>
+          <div class="product-price">$12.99</div>
+        </div>
+      </div>
+      <div class="product-card" data-cat="wine">
+        <img class="product-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=440&fit=crop&q=80" alt="La Marca Prosecco" onerror="this.style.background='#1a1a1a';this.style.height='220px'">
+        <div class="product-info">
+          <div class="product-category">Wine · Sparkling</div>
+          <div class="product-name">La Marca Prosecco</div>
+          <div class="product-note">Bright Italian bubbly. Perfect for celebrations or just a Tuesday.</div>
+          <div class="product-price">$13.99</div>
+        </div>
+      </div>
+      <div class="product-card" data-cat="wine">
+        <img class="product-img" src="https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400&h=440&fit=crop&q=80" alt="Meiomi Pinot Noir" onerror="this.style.background='#1a1a1a';this.style.height='220px'">
+        <div class="product-info">
+          <div class="product-category">Wine · Red</div>
+          <div class="product-name">Meiomi Pinot Noir</div>
+          <div class="product-note">Coastal California Pinot. Silky, strawberry-forward with a touch of mocha.</div>
+          <div class="product-price">$16.99</div>
+        </div>
+      </div>
+
+      <!-- SPIRITS -->
+      <div class="product-card" data-cat="spirits">
+        <img class="product-img" src="https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400&h=440&fit=crop&q=80" alt="Buffalo Trace Bourbon" onerror="this.style.background='#1a1a1a';this.style.height='220px'">
+        <div class="product-info">
+          <div class="product-category">Spirits · Bourbon</div>
+          <div class="product-name">Buffalo Trace Bourbon</div>
+          <div class="product-note">Award-winning Kentucky straight. Vanilla, toffee, and oak.</div>
+          <div class="product-price">$28.99</div>
+        </div>
+      </div>
+      <div class="product-card" data-cat="spirits">
+        <img class="product-img" src="https://images.unsplash.com/photo-1612528443702-f6741f70a049?w=400&h=440&fit=crop&q=80" alt="Tito's Handmade Vodka" onerror="this.style.background='#1a1a1a';this.style.height='220px'">
+        <div class="product-info">
+          <div class="product-category">Spirits · Vodka</div>
+          <div class="product-name">Tito's Handmade Vodka</div>
+          <div class="product-note">Austin-made, gluten-free. The go-to for cocktails and sipping clean.</div>
+          <div class="product-price">$19.99</div>
+        </div>
+      </div>
+      <div class="product-card" data-cat="spirits">
+        <img class="product-img" src="https://images.unsplash.com/photo-1583623025817-d180a2221d0a?w=400&h=440&fit=crop&q=80" alt="Patron Silver" onerror="this.style.background='#1a1a1a';this.style.height='220px'">
+        <div class="product-info">
+          <div class="product-category">Spirits · Tequila</div>
+          <div class="product-name">Patron Silver</div>
+          <div class="product-note">100% agave silver. Crisp and smooth for shots or margaritas.</div>
+          <div class="product-price">$44.99</div>
+        </div>
+      </div>
+      <div class="product-card" data-cat="spirits">
+        <img class="product-img" src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400&h=440&fit=crop&q=80" alt="Hendrick's Gin" onerror="this.style.background='#1a1a1a';this.style.height='220px'">
+        <div class="product-info">
+          <div class="product-category">Spirits · Gin</div>
+          <div class="product-name">Hendrick's Gin</div>
+          <div class="product-note">Scottish gin with rose and cucumber. Remarkably different.</div>
+          <div class="product-price">$34.99</div>
+        </div>
+      </div>
+
+      <!-- BEER -->
+      <div class="product-card" data-cat="beer">
+        <img class="product-img" src="https://images.unsplash.com/photo-1608270586620-248524c67de9?w=400&h=440&fit=crop&q=80" alt="Coors Banquet" onerror="this.style.background='#1a1a1a';this.style.height='220px'">
+        <div class="product-info">
+          <div class="product-category">Beer · Domestic</div>
+          <div class="product-name">Coors Banquet</div>
+          <div class="product-note">Colorado's original. Cold, crisp, and classic since 1873.</div>
+          <div class="product-price">$10.99 / 6-pack</div>
+        </div>
+      </div>
+      <div class="product-card" data-cat="beer">
+        <img class="product-img" src="https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=400&h=440&fit=crop&q=80" alt="New Belgium Fat Tire" onerror="this.style.background='#1a1a1a';this.style.height='220px'">
+        <div class="product-info">
+          <div class="product-category">Beer · Colorado Craft</div>
+          <div class="product-name">New Belgium Fat Tire</div>
+          <div class="product-note">Fort Collins favorite. Amber ale with perfect malt-hop balance.</div>
+          <div class="product-price">$10.99 / 6-pack</div>
+        </div>
+      </div>
+      <div class="product-card" data-cat="beer">
+        <img class="product-img" src="https://images.unsplash.com/photo-1566633806827-a8aee6adecd9?w=400&h=440&fit=crop&q=80" alt="Modelo Especial" onerror="this.style.background='#1a1a1a';this.style.height='220px'">
+        <div class="product-info">
+          <div class="product-category">Beer · Import</div>
+          <div class="product-name">Modelo Especial</div>
+          <div class="product-note">The Mexican lager that's taken over. Clean, refreshing, always cold.</div>
+          <div class="product-price">$11.99 / 6-pack</div>
+        </div>
+      </div>
+      <div class="product-card" data-cat="beer">
+        <img class="product-img" src="https://images.unsplash.com/photo-1532634922-8fe0b757fb13?w=400&h=440&fit=crop&q=80" alt="Oskar Blues Dale's Pale Ale" onerror="this.style.background='#1a1a1a';this.style.height='220px'">
+        <div class="product-info">
+          <div class="product-category">Beer · Colorado Craft</div>
+          <div class="product-name">Oskar Blues Dale's Pale Ale</div>
+          <div class="product-note">Colorado craft in a can. Hoppy, balanced, and always fresh.</div>
+          <div class="product-price">$11.99 / 6-pack</div>
+        </div>
+      </div>
+
+      <!-- RTD -->
+      <div class="product-card" data-cat="rtd">
+        <img class="product-img" src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400&h=440&fit=crop&q=80" alt="High Noon Sun Sips" onerror="this.style.background='#1a1a1a';this.style.height='220px'">
+        <div class="product-info">
+          <div class="product-category">Ready-to-Drink · Vodka Soda</div>
+          <div class="product-name">High Noon Sun Sips</div>
+          <div class="product-note">Real vodka, real juice, sparkling water. The RTD gold standard.</div>
+          <div class="product-price">$14.99 / 4-pack</div>
+        </div>
+      </div>
+      <div class="product-card" data-cat="rtd">
+        <img class="product-img" src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=440&fit=crop&q=80" alt="White Claw Hard Seltzer" onerror="this.style.background='#1a1a1a';this.style.height='220px'">
+        <div class="product-info">
+          <div class="product-category">Ready-to-Drink · Hard Seltzer</div>
+          <div class="product-name">White Claw Hard Seltzer</div>
+          <div class="product-note">Clean, crisp, and endlessly sessionable. Always in stock.</div>
+          <div class="product-price">$17.99 / 12-pack</div>
+        </div>
+      </div>
+      <div class="product-card" data-cat="rtd">
+        <img class="product-img" src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=400&h=440&fit=crop&q=80" alt="Cutwater Tequila Margarita" onerror="this.style.background='#1a1a1a';this.style.height='220px'">
+        <div class="product-info">
+          <div class="product-category">Ready-to-Drink · Cocktail</div>
+          <div class="product-name">Cutwater Tequila Margarita</div>
+          <div class="product-note">Bar-quality margarita in a can. Just add a salt rim.</div>
+          <div class="product-price">$3.99 / single</div>
+        </div>
+      </div>
+
+      <!-- NON-ALCOHOLIC -->
+      <div class="product-card" data-cat="na">
+        <img class="product-img" src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&h=440&fit=crop&q=80" alt="Athletic Brewing Run Wild IPA" onerror="this.style.background='#1a1a1a';this.style.height='220px'">
+        <div class="product-info">
+          <div class="product-category">Non-Alcoholic · Beer</div>
+          <div class="product-name">Athletic Brewing Run Wild IPA</div>
+          <div class="product-note">The NA IPA that actually tastes like beer. Hoppy and satisfying.</div>
+          <div class="product-price">$9.99 / 6-pack</div>
+        </div>
+      </div>
+      <div class="product-card" data-cat="na">
+        <img class="product-img" src="https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=400&h=440&fit=crop&q=80" alt="Ritual Zero Proof Whiskey" onerror="this.style.background='#1a1a1a';this.style.height='220px'">
+        <div class="product-info">
+          <div class="product-category">Non-Alcoholic · Spirit</div>
+          <div class="product-name">Ritual Zero Proof Whiskey</div>
+          <div class="product-note">All the flavor of bourbon, none of the buzz. Great in cocktails.</div>
+          <div class="product-price">$29.99</div>
+        </div>
+      </div>
+
+      <!-- GIFTS -->
+      <div class="product-card" data-cat="gifts">
+        <img class="product-img" src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=400&h=440&fit=crop&q=80" alt="Woodford Reserve Gift Set" onerror="this.style.background='#1a1a1a';this.style.height='220px'">
+        <div class="product-info">
+          <div class="product-category">Gifts · Spirits</div>
+          <div class="product-name">Woodford Reserve Gift Set</div>
+          <div class="product-note">Premium bourbon with two Glencairn glasses. A perfect gift.</div>
+          <div class="product-price">$49.99</div>
+        </div>
+      </div>
+      <div class="product-card" data-cat="gifts">
+        <img class="product-img" src="https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=400&h=440&fit=crop&q=80" alt="Custom Gift Basket" onerror="this.style.background='#1a1a1a';this.style.height='220px'">
+        <div class="product-info">
+          <div class="product-category">Gifts · Custom</div>
+          <div class="product-name">Custom Gift Basket</div>
+          <div class="product-note">Tell us your budget and occasion — we'll build it for you in store.</div>
+          <div class="product-price">From $39.99</div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -837,6 +1079,18 @@
     });
     document.getElementById('ageNo').addEventListener('click', () => {
       window.location.href = 'https://www.responsibility.org/';
+    });
+
+    // Category Filter
+    document.querySelectorAll('.category-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const cat = tab.dataset.cat;
+        document.querySelectorAll('.product-card').forEach(card => {
+          card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'block' : 'none';
+        });
+      });
     });
 
     // Hamburger Menu
