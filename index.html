@@ -329,8 +329,8 @@
       cursor: pointer;
       transition: all 0.2s;
     }
-    .category-tab:hover { border-color: #c0211a; color: #ffffff; }
-    .category-tab.active { background: #c0211a; border-color: #c0211a; color: #ffffff; }
+    .category-tab:hover { border-color: #c0211a; color: #ffffff; background: rgba(192,33,26,0.1); }
+    .category-tab.active { background: #c0211a; border-color: #c0211a; color: #ffffff; box-shadow: 0 0 12px rgba(192,33,26,0.4); }
     .category-tab i { font-size: 0.9rem; }
 
     .products-grid {
@@ -345,6 +345,7 @@
       overflow: hidden;
       transition: border-color 0.25s, transform 0.2s;
     }
+    .product-card { cursor: default; }
     .product-card:hover { border-color: rgba(192,33,26,0.5); transform: translateY(-3px); }
     .product-img {
       width: 100%;
