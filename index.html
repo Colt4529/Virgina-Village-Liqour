@@ -306,33 +306,69 @@
       margin-bottom: 3rem;
     }
 
-    .category-tabs {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
       margin-bottom: 3rem;
     }
-    .category-tab {
+    .category-card {
+      background: #0d0d0d;
+      border: 1px solid rgba(192,33,26,0.2);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .category-card:hover { background: #161616; border-color: rgba(192,33,26,0.5); transform: translateY(-2px); }
+    .category-card.active { background: #1a0a09; border-color: #c0211a; box-shadow: 0 0 20px rgba(192,33,26,0.2); }
+    .cat-icon { font-size: 2rem; margin-bottom: 1rem; display: block; color: #c0211a; }
+    .cat-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: #ffffff;
+      margin-bottom: 0.4rem;
+    }
+    .cat-desc { font-size: 0.8rem; color: #888888; line-height: 1.5; }
+
+    .products-panel {
+      display: none;
+      margin-top: 0;
+      animation: slideDown 0.3s ease;
+    }
+    .products-panel.open { display: block; }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: none; }
+    }
+    .products-panel-header {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.65rem 1.4rem;
-      border: 1px solid rgba(192,33,26,0.3);
-      border-radius: 2px;
-      background: transparent;
-      color: #aaaaaa;
-      font-family: 'Karla', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 600;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(192,33,26,0.2);
+    }
+    .products-panel-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: #ffffff;
+    }
+    .products-panel-close {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #888888;
+      font-size: 0.75rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+      border-radius: 2px;
       cursor: pointer;
+      font-family: 'Karla', sans-serif;
       transition: all 0.2s;
     }
-    .category-tab:hover { border-color: #c0211a; color: #ffffff; background: rgba(192,33,26,0.1); }
-    .category-tab.active { background: #c0211a; border-color: #c0211a; color: #ffffff; box-shadow: 0 0 12px rgba(192,33,26,0.4); }
-    .category-tab i { font-size: 0.9rem; }
-
+    .products-panel-close:hover { border-color: #c0211a; color: #ffffff; }
     .products-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -651,6 +687,7 @@
       .hero-visual { height: 280px; }
       section { padding: 5rem 2rem; }
       #about { grid-template-columns: 1fr; gap: 3rem; }
+      .categories-grid { grid-template-columns: 1fr 1fr; }
       .products-grid { grid-template-columns: 1fr 1fr; }
       .services-layout { grid-template-columns: 1fr; gap: 2rem; }
       .services-list { grid-template-columns: 1fr; }
@@ -780,17 +817,21 @@
     <h2>Browse Our <em>Selection</em></h2>
     <p class="selection-intro">Click a category to see what's on the shelf. From everyday picks to something special.</p>
 
-    <div class="category-tabs">
-      <button class="category-tab active" data-cat="all"><i class="fa-solid fa-store"></i> All</button>
-      <button class="category-tab" data-cat="wine"><i class="fa-solid fa-wine-bottle"></i> Wine</button>
-      <button class="category-tab" data-cat="spirits"><i class="fa-solid fa-whiskey-glass"></i> Spirits</button>
-      <button class="category-tab" data-cat="beer"><i class="fa-solid fa-beer-mug-empty"></i> Beer & Craft</button>
-      <button class="category-tab" data-cat="rtd"><i class="fa-solid fa-martini-glass-citrus"></i> Ready-to-Drink</button>
-      <button class="category-tab" data-cat="na"><i class="fa-solid fa-droplet"></i> Non-Alcoholic</button>
-      <button class="category-tab" data-cat="gifts"><i class="fa-solid fa-gift"></i> Gifts</button>
+    <div class="categories-grid">
+      <div class="category-card" data-cat="wine"><span class="cat-icon"><i class="fa-solid fa-wine-bottle"></i></span><div class="cat-name">Wine</div><div class="cat-desc">Old World classics, New World favorites, hidden gems</div></div>
+      <div class="category-card" data-cat="spirits"><span class="cat-icon"><i class="fa-solid fa-whiskey-glass"></i></span><div class="cat-name">Spirits</div><div class="cat-desc">Whiskey, bourbon, tequila, rum, vodka, gin</div></div>
+      <div class="category-card" data-cat="beer"><span class="cat-icon"><i class="fa-solid fa-beer-mug-empty"></i></span><div class="cat-name">Beer & Craft</div><div class="cat-desc">Colorado craft, domestic staples, imported favorites</div></div>
+      <div class="category-card" data-cat="rtd"><span class="cat-icon"><i class="fa-solid fa-martini-glass-citrus"></i></span><div class="cat-name">Ready-to-Drink</div><div class="cat-desc">Canned cocktails, seltzers, and RTDs</div></div>
+      <div class="category-card" data-cat="na"><span class="cat-icon"><i class="fa-solid fa-droplet"></i></span><div class="cat-name">Non-Alcoholic</div><div class="cat-desc">Athletic Brewing, Ritual, Spiritless, and more</div></div>
+      <div class="category-card" data-cat="gifts"><span class="cat-icon"><i class="fa-solid fa-gift"></i></span><div class="cat-name">Gifts & Mixers</div><div class="cat-desc">Gift sets, mixers, bitters, home bar essentials</div></div>
     </div>
 
-    <div class="products-grid fade-in">
+    <div class="products-panel" id="productsPanel">
+      <div class="products-panel-header">
+        <div class="products-panel-title" id="panelTitle"></div>
+        <button class="products-panel-close" id="panelClose">✕ Close</button>
+      </div>
+      <div class="products-grid">
 
       <!-- WINE -->
       <div class="product-card" data-cat="wine">
@@ -975,6 +1016,7 @@
         </div>
       </div>
 
+      </div>
     </div>
   </section>
 
@@ -1082,16 +1124,29 @@
       window.location.href = 'https://www.responsibility.org/';
     });
 
-    // Category Filter
-    document.querySelectorAll('.category-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        const cat = tab.dataset.cat;
-        document.querySelectorAll('.product-card').forEach(card => {
-          card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'block' : 'none';
+    // Category Cards → Product Panel
+    const panel = document.getElementById('productsPanel');
+    const panelTitle = document.getElementById('panelTitle');
+    const panelClose = document.getElementById('panelClose');
+    const catLabels = { wine: 'Wine', spirits: 'Spirits', beer: 'Beer & Craft', rtd: 'Ready-to-Drink', na: 'Non-Alcoholic', gifts: 'Gifts & Mixers' };
+
+    document.querySelectorAll('.category-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const cat = card.dataset.cat;
+        document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        panelTitle.textContent = catLabels[cat];
+        document.querySelectorAll('.product-card').forEach(p => {
+          p.style.display = p.dataset.cat === cat ? 'block' : 'none';
         });
+        panel.classList.add('open');
+        panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       });
+    });
+
+    panelClose.addEventListener('click', () => {
+      panel.classList.remove('open');
+      document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
     });
 
     // Hamburger Menu
