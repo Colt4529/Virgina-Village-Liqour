@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virginia Village Liquor | Denver, CO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Karla', sans-serif;
+      background: #000000;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(0,0,0,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(192,33,26,0.35);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #ffffff;
+      text-decoration: none;
+    }
+    .nav-logo span { color: #c0211a; }
+
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #ffffff;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #c0211a; }
+    .nav-cta { background: #c0211a !important; padding: 0.5rem 1.2rem; border-radius: 2px; }
+    .nav-cta:hover { background: #9e1a14 !important; color: #ffffff !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 70px;
+      background: #000000;
+    }
+
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 4rem 6rem 5rem;
+    }
+
+    .hero-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #c0211a;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-tag::before {
+      content: '';
+      display: inline-block;
+      width: 2rem; height: 1px;
+      background: #c0211a;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      line-height: 1.1;
+      color: #ffffff;
+      margin-bottom: 1.5rem;
+    }
+    h1 em { font-style: italic; color: #c0211a; }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 1.8;
+      color: #ffffff;
+      max-width: 440px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-primary {
+      display: inline-block;
+      background: #c0211a;
+      color: #ffffff;
+      padding: 0.85rem 2rem;
+      font-family: 'Karla', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.25s, transform 0.15s;
+    }
+    .btn-primary:hover { background: #9e1a14; transform: translateY(-1px); }
+
+    .btn-outline {
+      display: inline-block;
+      border: 1.5px solid #c0211a;
+      color: #ffffff;
+      padding: 0.85rem 2rem;
+      font-family: 'Karla', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.25s;
+    }
+    .btn-outline:hover { background: #c0211a; }
+
+    .hero-visual {
+      background: #111111;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-visual::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 40% 50%, rgba(192,33,26,0.18) 0%, transparent 70%);
+    }
+
+    .bottle-illustration { position: relative; z-index: 1; text-align: center; }
+    .bottle-svg { width: 160px; opacity: 0.9; animation: float 6s ease-in-out infinite; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+
+    .hero-badge {
+      position: absolute;
+      bottom: 3rem; left: 3rem;
+      background: rgba(192,33,26,0.15);
+      border: 1px solid rgba(192,33,26,0.4);
+      color: #ffffff;
+      padding: 0.6rem 1rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 2px;
+    }
+
+    /* INFO STRIP */
+    .info-strip {
+      background: #111111;
+      border-top: 1px solid rgba(192,33,26,0.3);
+      border-bottom: 1px solid rgba(192,33,26,0.3);
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      padding: 1.5rem 3rem;
+      flex-wrap: wrap;
+    }
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      color: #ffffff;
+    }
+    .info-item svg { color: #c0211a; flex-shrink: 0; }
+    .info-item a { color: #ffffff; text-decoration: none; }
+    .info-item a:hover { color: #c0211a; }
+
+    /* SECTIONS */
+    section { padding: 6rem 5rem; }
+
+    .section-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #c0211a;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-tag::before {
+      content: '';
+      display: inline-block;
+      width: 1.5rem; height: 1px;
+      background: #c0211a;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.15;
+      color: #ffffff;
+      margin-bottom: 1rem;
+    }
+    h2 em { font-style: italic; color: #c0211a; }
+
+    /* ABOUT */
+    #about {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 6rem;
+      align-items: center;
+      background: #0a0a0a;
+    }
+
+    .about-card {
+      background: #111111;
+      border: 1px solid rgba(192,33,26,0.25);
+      padding: 3rem;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-card::after {
+      content: '"';
+      font-family: 'Playfair Display', serif;
+      font-size: 12rem;
+      color: rgba(192,33,26,0.07);
+      position: absolute;
+      top: -2rem; right: 1rem;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .about-card blockquote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      line-height: 1.7;
+      color: #ffffff;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .about-card cite {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #c0211a;
+    }
+
+    .about-content p {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: #ffffff;
+      margin-bottom: 1.2rem;
+    }
+
+    .stats-row { display: flex; gap: 2.5rem; margin-top: 2.5rem; }
+    .stat { border-left: 2px solid #c0211a; padding-left: 1rem; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: #ffffff;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #ffffff;
+      margin-top: 0.25rem;
+    }
+
+    /* SELECTION */
+    #selection { background: #000000; }
+
+    .selection-intro {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #ffffff;
+      max-width: 500px;
+      margin-bottom: 3rem;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(192,33,26,0.2);
+      border: 1px solid rgba(192,33,26,0.2);
+    }
+    .category-card {
+      background: #0d0d0d;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      transition: background 0.25s;
+    }
+    .category-card:hover { background: #161616; }
+    .cat-icon { font-size: 2.2rem; margin-bottom: 1rem; display: block; }
+    .cat-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+    .cat-desc { font-size: 0.82rem; color: #ffffff; line-height: 1.6; }
+
+    /* SERVICES */
+    #services { background: #0a0a0a; }
+
+    .services-layout {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 5rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+    .services-sidebar p { font-size: 1rem; line-height: 1.9; color: #ffffff; }
+
+    .services-list { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .service-item {
+      padding: 2rem;
+      border: 1px solid rgba(192,33,26,0.3);
+      border-radius: 3px;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .service-item:hover { border-color: #c0211a; background: #111111; }
+    .service-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: #c0211a;
+      margin-bottom: 0.75rem;
+    }
+    .service-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+    .service-desc { font-size: 0.85rem; line-height: 1.7; color: #ffffff; }
+
+    /* VISIT */
+    #visit { display: grid; grid-template-columns: 1fr 1fr; padding: 0; }
+
+    .visit-info {
+      padding: 6rem 5rem;
+      background: #000000;
+    }
+    .visit-info h2 { margin-bottom: 2rem; }
+
+    .hours-table { width: 100%; border-collapse: collapse; margin-bottom: 2.5rem; }
+    .hours-table tr { border-bottom: 1px solid rgba(192,33,26,0.2); }
+    .hours-table td { padding: 0.75rem 0; font-size: 0.9rem; color: #ffffff; }
+    .hours-table td:last-child { text-align: right; color: #c0211a; }
+
+    .contact-details { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: #ffffff;
+    }
+    .contact-row svg { color: #c0211a; flex-shrink: 0; }
+    .contact-row a { color: #ffffff; text-decoration: none; }
+    .contact-row a:hover { color: #c0211a; }
+
+    .map-placeholder {
+      background: #111111;
+      position: relative;
+      overflow: hidden;
+      min-height: 500px;
+    }
+    .map-placeholder iframe {
+      width: 100%; height: 100%;
+      position: absolute; inset: 0;
+      border: none;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #000000;
+      border-top: 1px solid rgba(192,33,26,0.2);
+      color: #ffffff;
+      text-align: center;
+      padding: 2.5rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+    }
+    footer a { color: #c0211a; text-decoration: none; }
+    footer .fine { color: #666666; margin-top: 0.5rem; }
+
+    /* FADE IN */
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* HAMBURGER */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #ffffff;
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 60px; left: 0; right: 0;
+      background: rgba(0,0,0,0.98);
+      border-bottom: 1px solid rgba(192,33,26,0.35);
+      z-index: 99;
+      flex-direction: column;
+      padding: 1.5rem 2rem 2rem;
+      gap: 0;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(192,33,26,0.15);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover, .mobile-menu a.cta { color: #c0211a; }
+
+    /* AGE GATE */
+    .age-gate {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.97);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .age-gate-box {
+      background: #111111;
+      border: 1px solid rgba(192,33,26,0.4);
+      border-radius: 4px;
+      padding: 3.5rem 3rem;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+    }
+    .age-gate-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 2rem;
+      letter-spacing: 0.04em;
+    }
+    .age-gate-logo span { color: #c0211a; }
+    .age-gate-box h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: #ffffff;
+      margin-bottom: 0.75rem;
+    }
+    .age-gate-box p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: #aaaaaa;
+      margin-bottom: 2rem;
+    }
+    .age-gate-actions { display: flex; gap: 1rem; justify-content: center; }
+    .age-gate-yes {
+      background: #c0211a;
+      color: #ffffff;
+      border: none;
+      padding: 0.85rem 2rem;
+      font-family: 'Karla', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .age-gate-yes:hover { background: #9e1a14; }
+    .age-gate-no {
+      background: transparent;
+      color: #888888;
+      border: 1px solid #444444;
+      padding: 0.85rem 2rem;
+      font-family: 'Karla', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .age-gate-no:hover { border-color: #888888; }
+    .age-gate-fine { font-size: 0.72rem; color: #555555; margin-top: 1.5rem; }
+
+    /* REVIEWS */
+    #reviews { background: #0a0a0a; }
+    .reviews-intro {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #ffffff;
+      max-width: 480px;
+      margin-bottom: 3rem;
+    }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .review-card {
+      background: #111111;
+      border: 1px solid rgba(192,33,26,0.2);
+      border-radius: 4px;
+      padding: 2rem;
+      transition: border-color 0.25s;
+    }
+    .review-card:hover { border-color: rgba(192,33,26,0.5); }
+    .review-stars { color: #c0211a; font-size: 0.85rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    .review-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #ffffff;
+      margin-bottom: 1.25rem;
+    }
+    .review-author {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #c0211a;
+    }
+    .reviews-source {
+      margin-top: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.8rem;
+      color: #666666;
+    }
+    .reviews-source svg { color: #c0211a; }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .hamburger { display: flex; }
+      .nav-links { display: none; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-text { padding: 5rem 2rem 3rem; }
+      .hero-visual { height: 280px; }
+      section { padding: 4rem 2rem; }
+      #about { grid-template-columns: 1fr; gap: 3rem; }
+      .categories-grid { grid-template-columns: 1fr 1fr; }
+      .services-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .services-list { grid-template-columns: 1fr; }
+      #visit { grid-template-columns: 1fr; }
+      .visit-info { padding: 4rem 2rem; }
+      .map-placeholder { min-height: 300px; }
+      .stats-row { gap: 1.5rem; }
+      .info-strip { gap: 1.5rem; padding: 1.5rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Age Gate -->
+  <div class="age-gate" id="ageGate">
+    <div class="age-gate-box">
+      <div class="age-gate-logo">Virginia Village <span>Liquor</span></div>
+      <h3>Are You 21 or Older?</h3>
+      <p>You must be of legal drinking age to enter this website. Please verify your age to continue.</p>
+      <div class="age-gate-actions">
+        <button class="age-gate-yes" id="ageYes">Yes, I'm 21+</button>
+        <button class="age-gate-no" id="ageNo">No</button>
+      </div>
+      <p class="age-gate-fine">By entering, you confirm you are of legal drinking age in your location.</p>
+    </div>
+  </div>
+
+  <nav id="nav">
+    <a href="#" class="nav-logo">Virginia Village <span>Liquor</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">Our Story</a></li>
+      <li><a href="#selection">Selection</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#visit" class="nav-cta">Visit Us</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" class="mobile-link">Our Story</a>
+    <a href="#selection" class="mobile-link">Selection</a>
+    <a href="#services" class="mobile-link">Services</a>
+    <a href="#reviews" class="mobile-link">Reviews</a>
+    <a href="#visit" class="mobile-link cta">Visit Us</a>
+  </div>
+
+  <section class="hero" id="home">
+    <div class="hero-text">
+      <div class="hero-tag">Denver, Colorado · Since 2000</div>
+      <h1>Your Neighborhood<br /><em>Bottle Shop</em></h1>
+      <p class="hero-desc">
+        A curated selection of wines, spirits, and craft beer — from everyday favorites to rare finds. Family-owned and proud to serve the Virginia Village community for over two decades.
+      </p>
+      <div class="hero-actions">
+        <a href="#selection" class="btn-primary">Browse Selection</a>
+        <a href="#visit" class="btn-outline">Find Us</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="bottle-illustration">
+        <svg class="bottle-svg" viewBox="0 0 100 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M35 100 Q28 120 26 145 L26 215 Q26 225 50 225 Q74 225 74 215 L74 145 Q72 120 65 100 Z" fill="rgba(192,33,26,0.15)" stroke="rgba(192,33,26,0.6)" stroke-width="1.5"/>
+          <path d="M38 85 Q35 92 35 100 L65 100 Q65 92 62 85 Z" fill="rgba(192,33,26,0.1)" stroke="rgba(192,33,26,0.5)" stroke-width="1.5"/>
+          <rect x="42" y="40" width="16" height="45" rx="3" fill="rgba(192,33,26,0.1)" stroke="rgba(192,33,26,0.5)" stroke-width="1.5"/>
+          <rect x="40" y="28" width="20" height="16" rx="3" fill="rgba(192,33,26,0.4)" stroke="rgba(192,33,26,0.8)" stroke-width="1.5"/>
+          <rect x="31" y="130" width="38" height="55" rx="2" fill="rgba(255,255,255,0.03)" stroke="rgba(192,33,26,0.3)" stroke-width="1"/>
+          <line x1="36" y1="148" x2="64" y2="148" stroke="rgba(192,33,26,0.5)" stroke-width="0.8"/>
+          <line x1="39" y1="155" x2="61" y2="155" stroke="rgba(192,33,26,0.3)" stroke-width="0.6"/>
+          <line x1="39" y1="162" x2="61" y2="162" stroke="rgba(192,33,26,0.3)" stroke-width="0.6"/>
+          <path d="M27 160 L27 215 Q27 223 50 223 Q73 223 73 215 L73 160 Z" fill="rgba(192,33,26,0.2)"/>
+          <line x1="40" y1="105" x2="38" y2="210" stroke="rgba(255,255,255,0.05)" stroke-width="4"/>
+        </svg>
+        <svg style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:280px;height:280px;opacity:0.1;" viewBox="0 0 280 280" fill="none">
+          <circle cx="140" cy="140" r="130" stroke="#c0211a" stroke-width="1" stroke-dasharray="4 8"/>
+          <circle cx="140" cy="140" r="100" stroke="#c0211a" stroke-width="0.5"/>
+        </svg>
+      </div>
+      <div class="hero-badge">Est. 2000 · Family Owned</div>
+    </div>
+  </section>
+
+  <div class="info-strip">
+    <div class="info-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Mon–Sun: 10 AM – 10 PM
+    </div>
+    <div class="info-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      1455 S Holly St, Denver CO 80222
+    </div>
+    <div class="info-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.58 5 2 2 0 0 1 3.55 3h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 10.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 17z"/></svg>
+      <a href="tel:3037564999">(303) 756-4999</a>
+    </div>
+    <div class="info-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      Pet Friendly
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="about-visual fade-in">
+      <div class="about-card">
+        <blockquote>"If they don't have a brand you're looking for, they'll order it for your next trip in."</blockquote>
+        <cite>— Satisfied Customer</cite>
+      </div>
+    </div>
+    <div class="about-content fade-in">
+      <div class="section-tag">Our Story</div>
+      <h2>A Denver Institution<br />Since 2000</h2>
+      <p>Virginia Village Liquor has been a cornerstone of the East Denver community for over two decades. We're a neighborhood bottle shop in the truest sense — local, knowledgeable, and genuinely invested in helping you find exactly what you're looking for.</p>
+      <p>From everyday wines and craft beers to premium spirits and hard-to-find bottles, our shelves are stocked with intention. Can't find something? Just ask — we love a special order.</p>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-num">24+</div><div class="stat-label">Years in Denver</div></div>
+        <div class="stat"><div class="stat-num">1000s</div><div class="stat-label">Bottles in Stock</div></div>
+        <div class="stat"><div class="stat-num">A+</div><div class="stat-label">BBB Rating</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="selection">
+    <div class="section-tag">What We Carry</div>
+    <h2>A Carefully Chosen <em>Selection</em></h2>
+    <p class="selection-intro">Beer, wine, spirits, and more — from everyday picks to something special for the occasion.</p>
+    <div class="categories-grid fade-in">
+      <div class="category-card"><span class="cat-icon">🍷</span><div class="cat-name">Wine</div><div class="cat-desc">Old World classics, New World favorites, and hidden gems from small producers</div></div>
+      <div class="category-card"><span class="cat-icon">🥃</span><div class="cat-name">Spirits</div><div class="cat-desc">Whiskey, bourbon, tequila, rum, vodka, gin — everyday bottles to collector pours</div></div>
+      <div class="category-card"><span class="cat-icon">🍺</span><div class="cat-name">Beer & Craft</div><div class="cat-desc">Colorado craft, domestic staples, and imported favorites in six packs and singles</div></div>
+      <div class="category-card"><span class="cat-icon">🍹</span><div class="cat-name">Ready-to-Drink</div><div class="cat-desc">Canned cocktails, seltzers, and RTDs for any occasion</div></div>
+      <div class="category-card"><span class="cat-icon">🫧</span><div class="cat-name">Non-Alcoholic</div><div class="cat-desc">Athletic Brewing, Ritual spirits, Spiritless, and more NA options growing weekly</div></div>
+      <div class="category-card"><span class="cat-icon">🎁</span><div class="cat-name">Gifts & Mixers</div><div class="cat-desc">Gift sets, mixers, bitters, and everything you need to stock a home bar</div></div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="section-tag">How We Help</div>
+    <h2>More Than<br />Just a Store</h2>
+    <div class="services-layout">
+      <div class="services-sidebar fade-in">
+        <p>We go beyond stocking shelves. Whether you need a gift, planning an event, or hunting a specific bottle, we're here to help.</p>
+      </div>
+      <div class="services-list fade-in">
+        <div class="service-item"><div class="service-num">01</div><div class="service-title">Special Orders</div><div class="service-desc">Can't find a specific bottle? We'll source it for your next visit.</div></div>
+        <div class="service-item"><div class="service-num">02</div><div class="service-title">Volume Discounts</div><div class="service-desc">Stocking up for a party or event? Ask about our bulk pricing deals.</div></div>
+        <div class="service-item"><div class="service-num">03</div><div class="service-title">Expert Recommendations</div><div class="service-desc">Tell us the occasion and your budget — we'll find the perfect bottle.</div></div>
+        <div class="service-item"><div class="service-num">04</div><div class="service-title">Loyalty Program</div><div class="service-desc">Regular customers enjoy exclusive deals, specials, and early access to new stock.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="visit" style="padding:0;">
+    <div class="visit-info fade-in">
+      <div class="section-tag">Come See Us</div>
+      <h2>Visit the Shop</h2>
+      <table class="hours-table">
+        <tr><td>Monday – Thursday</td><td>10:00 AM – 10:00 PM</td></tr>
+        <tr><td>Friday – Saturday</td><td>10:00 AM – 10:00 PM</td></tr>
+        <tr><td>Sunday</td><td>10:00 AM – 10:00 PM</td></tr>
+      </table>
+      <div class="contact-details">
+        <div class="contact-row">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          1455 S Holly St, Denver, CO 80222
+        </div>
+        <div class="contact-row">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.58 5 2 2 0 0 1 3.55 3h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 10.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 17z"/></svg>
+          <a href="tel:3037564999">(303) 756-4999</a>
+        </div>
+        <div class="contact-row">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><polyline points="1,4 12,13 23,4"/></svg>
+          Virginia Village, East Denver
+        </div>
+        <div class="contact-row" style="margin-top:0.5rem;">
+          <a href="https://maps.google.com/?q=1455+S+Holly+St+Denver+CO+80222" target="_blank" class="btn-outline" style="font-size:0.78rem; padding:0.6rem 1.4rem;">Get Directions →</a>
+        </div>
+      </div>
+    </div>
+    <div class="map-placeholder">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3071.7!2d-104.9295!3d39.6818!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x876c7f8e!2sVirginia+Village+Liquor%2C+1455+S+Holly+St%2C+Denver%2C+CO+80222!5e0!3m2!1sen!2sus!4v1"
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <div class="section-tag">What People Say</div>
+    <h2>Loved By the <em>Neighborhood</em></h2>
+    <p class="reviews-intro">Don't just take our word for it — Virginia Village Liquor has been a Denver staple for over two decades.</p>
+    <div class="reviews-grid fade-in">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Best neighborhood liquor store in Denver. The staff actually know their stuff and will point you to something perfect for your budget."</p>
+        <div class="review-author">— Mike T. · Google Review</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"If they don't have a brand you're looking for, they'll order it for your next trip in. That kind of service is rare."</p>
+        <div class="review-author">— Sarah L. · Google Review</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Family-owned feel, incredible selection, and prices that beat the big chains. Been coming here for 10 years and wouldn't go anywhere else."</p>
+        <div class="review-author">— James R. · Google Review</div>
+      </div>
+    </div>
+    <div class="reviews-source">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Reviews sourced from Google · 4.6 average rating
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Virginia Village Liquor · 1455 S Holly St, Denver, CO 80222 · <a href="tel:3037564999">(303) 756-4999</a></p>
+    <p class="fine">Please drink responsibly. Must be 21+ to purchase alcohol.</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Age Gate
+    const ageGate = document.getElementById('ageGate');
+    const verified = sessionStorage.getItem('ageVerified');
+    if (verified) ageGate.style.display = 'none';
+
+    document.getElementById('ageYes').addEventListener('click', () => {
+      sessionStorage.setItem('ageVerified', '1');
+      ageGate.style.opacity = '0';
+      ageGate.style.transition = 'opacity 0.4s';
+      setTimeout(() => ageGate.style.display = 'none', 400);
+    });
+    document.getElementById('ageNo').addEventListener('click', () => {
+      window.location.href = 'https://www.responsibility.org/';
+    });
+
+    // Hamburger Menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+  </script>
+</body>
+</html>
