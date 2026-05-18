@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='8' fill='%23c0211a'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='28' font-weight='bold' fill='white'>VV</text></svg>" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -503,6 +504,13 @@
     }
     footer a { color: #c0211a; text-decoration: none; }
     footer .fine { color: #666666; margin-top: 0.5rem; }
+    .footer-social { display: flex; justify-content: center; gap: 1.2rem; margin-top: 1.2rem; }
+    .footer-social a {
+      color: #666666;
+      font-size: 1.1rem;
+      transition: color 0.2s;
+    }
+    .footer-social a:hover { color: #c0211a; }
 
     /* FADE IN */
     .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -1100,6 +1108,10 @@
 
   <footer>
     <p>© 2025 Virginia Village Liquor · 1455 S Holly St, Denver, CO 80222 · <a href="tel:3037564999">(303) 756-4999</a></p>
+    <div class="footer-social">
+      <a href="https://www.facebook.com" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+      <a href="https://www.instagram.com" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    </div>
     <p class="fine">Please drink responsibly. Must be 21+ to purchase alcohol.</p>
   </footer>
 
